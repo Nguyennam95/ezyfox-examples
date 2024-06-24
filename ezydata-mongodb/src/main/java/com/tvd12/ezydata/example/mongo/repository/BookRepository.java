@@ -1,7 +1,5 @@
 package com.tvd12.ezydata.example.mongo.repository;
 
-import java.util.List;
-
 import com.tvd12.ezydata.example.mongo.entity.Book;
 import com.tvd12.ezydata.example.mongo.result.SumBookPriceResult;
 import com.tvd12.ezydata.mongodb.EzyMongoRepository;
@@ -9,10 +7,16 @@ import com.tvd12.ezyfox.database.annotation.EzyQuery;
 import com.tvd12.ezyfox.database.annotation.EzyRepository;
 import com.tvd12.ezyfox.util.Next;
 
+import java.util.List;
+
 @EzyRepository
 public interface BookRepository extends EzyMongoRepository<Long, Book> {
 
     Book findByNameAndAuthorId(String name, Long authorId);
+
+    int countByAuthorId(long authorId);
+
+    void deleteByAuthorId(long authorId);
 
     @EzyQuery("{$orderby:{name:1}}")
     List<Book> findBooks(Next next);
@@ -25,4 +29,10 @@ public interface BookRepository extends EzyMongoRepository<Long, Book> {
 
     @EzyQuery("[{ $group: { _id : 'sum', sum : { $sum: {$toDecimal: '$price'}} } }]")
     SumBookPriceResult sumPrice();
+
+    @EzyQuery("{authorId:{$gt:?0}}")
+    int countByAuthorIdGt(long authorId);
+
+    @EzyQuery("{authorId:{$gt:?0}}")
+    void deleteByAuthorIdGt(long authorId);
 }

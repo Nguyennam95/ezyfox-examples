@@ -1,0 +1,47 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user information</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Main JavaScript -->
+    <script th:src="@{/js/main.js}"></script>
+    <!-- Main style-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!--    semantic ui-->
+    <script crossorigin="anonymous"
+            integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+          integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+</head>
+<body>
+<div class="ui text container" style="margin-top: 20px; max-width: 450px">
+    <h2>Update user information</h2>
+    <form class="ui form" method="post" th:action="@{/user/save}">
+        <div class="field" th:if="${accountType == 'FACEBOOK'}">
+            <label>Email</label>
+            <input name="email" placeholder="Email" type="email">
+        </div>
+        <div class="field" th:unless="${accountType == 'FACEBOOK'}">
+            <label>Email</label>
+            <input name="email" placeholder="Email" readonly th:value="${user.email}" type="email">
+        </div>
+        <div class="field">
+            <label>First Name</label>
+            <input name="firstName" placeholder="First Name" type="text">
+        </div>
+        <div class="field">
+            <label>Last Name</label>
+            <input name="lastName" placeholder="Last Name" type="text">
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input name="password" placeholder="Password" type="password">
+        </div>
+        <button class="ui fluid middle teal submit button" type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

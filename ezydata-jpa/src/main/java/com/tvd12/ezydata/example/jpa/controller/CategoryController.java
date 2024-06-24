@@ -8,10 +8,7 @@ import com.tvd12.ezydata.example.jpa.request.AddCategoryRequest;
 import com.tvd12.ezydata.example.jpa.response.CategoryResponse;
 import com.tvd12.ezydata.example.jpa.service.CategoryService;
 import com.tvd12.ezydata.example.jpa.validator.CategoryValidator;
-import com.tvd12.ezyhttp.server.core.annotation.Controller;
-import com.tvd12.ezyhttp.server.core.annotation.DoPost;
-import com.tvd12.ezyhttp.server.core.annotation.RequestBody;
-
+import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -30,4 +27,9 @@ public class CategoryController {
         return dataToResponseConverter.toResponse(categoryData);
     }
 
+    @DoGet("/{categoryId}")
+    public CategoryResponse getCategory(@PathVariable long categoryId) {
+        final CategoryData categoryData = categoryService.getCategory(categoryId);
+        return dataToResponseConverter.toResponse(categoryData);
+    }
 }
